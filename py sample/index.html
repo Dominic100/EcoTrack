@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Data Submission</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        textarea, input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>API Data Submission</h1>
+    
+    <!-- Data Submission Form -->
+    <form id="data-form">
+        <textarea id="data" rows="10" placeholder="Paste JSON data here..."></textarea><br>
+        <button type="button" onclick="submitData()">Submit</button>
+    </form>
+    
+    <!-- File Upload Form -->
+    <h2>Upload JSON File</h2>
+    <form id="upload-form" enctype="multipart/form-data">
+        <input type="file" id="file" name="file" accept=".json"><br>
+        <button type="button" onclick="uploadFile()">Upload</button>
+    </form>
+    
+    <!-- Data Retrieval Form -->
+    <h2>Retrieve JSON Data</h2>
+    <form id="retrieve-form">
+        <input type="text" id="filename" placeholder="Enter filename..."><br>
+        <button type="button" onclick="retrieveData()">Retrieve</button>
+    </form>
+    
+    <pre id="response"></pre>
+    
+    <script>
+        function submitData() {
+            try {
+                const data = JSON.parse(document.getElementById('data').value);
+                fetch('/post-data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('response').textContent = JSON.stringify(data, null, 4);
+                })
+                .catch(error => {
+                    document.getElementById('response').textContent = 'Error: ' + error;
+                });
+            } catch (error) {
+                document.getElementById('response').textContent = 'Invalid JSON: ' + error;
+            }
+        }
+        
+        function uploadFile() {
+            const formData = new FormData();
+            formData.append('file', document.getElementById('file').files[0]);
+            
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('response').textContent = JSON.stringify(data, null, 4);
+            })
+            .catch(error => {
+                document.getElementById('response').textContent = 'Error: ' + error;
+            });
+        }
+
+        function retrieveData() {
+            const filename = document.getElementById('filename').value;
+            fetch(`/retrieve-data/${filename}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('response').textContent = JSON.stringify(data, null, 4);
+            })
+            .catch(error => {
+                document.getElementById('response').textContent = 'Error: ' + error;
+            });
+        }
+        
+        const fileInput = document.getElementById('file');
+    </script>
+</body>
+</html>

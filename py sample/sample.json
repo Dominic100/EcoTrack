@@ -1,0 +1,9 @@
+{
+    "name": "Sample Data",
+    "description": "This is a sample JSON payload for testing API submission.",
+    "values": [1, 2, 3, 4, 5],
+    "details": {
+      "key1": "value1",
+      "key2": "value2"
+    }
+  }
