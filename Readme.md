@@ -1,6 +1,9 @@
 # Ecotrack: Real-Time Carbon Footprint Calculator #
 Welcome to our Real-Time Carbon Footprint Calculator, a comprehensive platform designed to help users track and reduce their carbon emissions. This project is developed to provide real-time monitoring of power consumption and calculate the corresponding carbon footprint, offering insights into three major areas: manufacturing, charging, and device usage.
 
+## DEMO VIDEO
+![Watch the video]([path/to/your/video.mp4](https://youtu.be/p1vW_jMaNEU))
+
 ## Hardware Components ##
 Our system is powered by the following hardware components:
 
