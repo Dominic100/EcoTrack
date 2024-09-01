@@ -20,6 +20,12 @@ const Navbar = ({ onLogout }) => {
                 <Link to="/" className="navbar-brand" style={{ fontSize: '22px' }}>EcoTrack</Link>
                 <div className="collapse navbar-collapse justify-content-end">
                     <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <Link to="/" className="nav-link">Home</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/leaderboard" className="nav-link">Leaderboard</Link>
+                        </li>
                         {username ? (
                             <li className="nav-item dropdown">
                                 <span

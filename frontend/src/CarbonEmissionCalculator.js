@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import Papa from 'papaparse';
-import { Container, Row, Col, Card } from 'react-bootstrap'; // Import Bootstrap components
+import { Container, Row, Col, Card, Button } from 'react-bootstrap'; // Import Bootstrap components
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import DeviceCard from './DeviceCard';
 
@@ -39,6 +39,10 @@ const CarbonEmissionCalculator = () => {
         navigate(`/device/${subcategory}`); // Navigate to the new page
     };
 
+    const handleReducePage = () => {
+        navigate('/reduce-carbon-footprint'); // Navigate to ReducePage
+    };
+
     return (
         <Container>
             <h2 className="my-4">How much did your device actually cost?</h2>
@@ -54,6 +58,11 @@ const CarbonEmissionCalculator = () => {
                     </Col>
                 ))}
             </Row>
+            <div className="text-center my-4">
+                <Button variant="primary" onClick={handleReducePage}>
+                    How to Reduce Your Carbon Footprint
+                </Button>
+            </div>
         </Container>
     );
 };

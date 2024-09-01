@@ -1,19 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from './firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import DashDeviceCard from './DashDeviceCard';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useUser } from './UserContext'; // Import useUser hook from UserContext
 
 const Dashboard = () => {
     const [devices, setDevices] = useState([]);
     const navigate = useNavigate();
+    const { username } = useUser(); // Access the logged-in user's username
 
     useEffect(() => {
         const fetchDevices = async () => {
+            if (!username) {
+                console.error('No user is logged in.');
+                return;
+            }
+
             try {
-                const querySnapshot = await getDocs(collection(db, 'devices'));
+                // Query the devices collection where the username matches the logged-in user
+                const q = query(collection(db, 'devices'), where('username', '==', username));
+                const querySnapshot = await getDocs(q);
                 const devicesData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 setDevices(devicesData);
             } catch (error) {
@@ -22,7 +31,7 @@ const Dashboard = () => {
         };
 
         fetchDevices();
-    }, []);
+    }, [username]); // Re-fetch devices when username changes
 
     const handleAddDevice = () => {
         navigate('/add-device');
