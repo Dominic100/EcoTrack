@@ -9,8 +9,8 @@ EnergyMonitor emon;
 float kWh = 0;
 unsigned long lastmillis = millis();
 
-const char* ssid = "Dom";
-const char* password = "aneesh123";
+const char* ssid = "****";
+const char* password = "****";
 
 WebServer server(80);
 
