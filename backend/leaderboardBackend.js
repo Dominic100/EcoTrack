@@ -8,7 +8,7 @@ const { getFirestore, collection, getDocs, doc, setDoc } = require('firebase/fir
 
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAJO0TQBIQ_yNfJk_2V3KOJNwFGhI2DL7A",
+    apiKey: "****",
     authDomain: "ecotrack-86713.firebaseapp.com",
     projectId: "ecotrack-86713",
     storageBucket: "ecotrack-86713.appspot.com",
